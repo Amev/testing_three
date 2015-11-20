@@ -7,12 +7,14 @@ class HomeStore extends BaseStore {
 		super(dispatcher);
 		this.cameraPosition = new THREE.Vector3(0, 0, 5);
 		this.cubeRotation = new THREE.Euler();
+		this.color = 0x00ff00;
 	}
 
 	getState() {
 		return {
 			cameraPosition: this.cameraPosition,
-			cubeRotation: this.cubeRotation
+			cubeRotation: this.cubeRotation,
+			color: this.color
 		};
 	}
 
@@ -21,19 +23,26 @@ class HomeStore extends BaseStore {
 		this.emitChange();
 	}
 
+	onChangeColor(payload) {
+		this.color = payload.color;
+		this.emitChange();
+	}
+
 	dehydrate() {
 		return this.getState();
 	}
 
 	rehydrate(state) {
-		this.cameraPosition = state.cameraPosition;
-		this.cubeRotation = state.cubeRotation;
+		this.cameraPosition = new THREE.Vector3(0, 0, 5);
+		this.cubeRotation = new THREE.Euler();
+		this.color = state.color;
 	}
 }
 
 HomeStore.storeName = 'HomeStore';
 HomeStore.handlers = {
-	'ANIMATE_CUBE_ACTION': 'onAnimateCube'
+	'ANIMATE_CUBE_ACTION': 'onAnimateCube',
+	'CHANGE_COLOR_ACTION': 'onChangeColor'
 };
 
 export default HomeStore;

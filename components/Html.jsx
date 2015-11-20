@@ -1,3 +1,4 @@
+import config from '../config/configPublic.json';
 import React from 'react';
 
 class Html extends React.Component {
@@ -12,7 +13,7 @@ class Html extends React.Component {
 				<head>
 					<meta charSet="utf-8"/>
 					<title>Slidor</title>
-					<link rel="stylesheet" href="http://localhost:3000/build/style.css" />
+					<link rel="stylesheet" href={config.serviceURL + "build/style.css"} />
 				</head>
 				<body>
 					<div id="container" dangerouslySetInnerHTML={{__html: this.props.markup}}></div>

@@ -25,7 +25,6 @@
     "serve-favicon": "^2.3.0",
     "socket.io": "^1.3.7",
     "socket.io-client": "^1.3.7",
-    "three.js": "^0.73.0",
     "three.js-node": "^0.72.1"
   },
   "devDependencies": {

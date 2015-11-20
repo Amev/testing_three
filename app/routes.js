@@ -3,7 +3,8 @@ export default {
 		path: '/',
 		method: 'get',
 		label: 'Home',
-		handler: require('../components/Home.jsx')
+		handler: require('../components/Home.jsx'),
+		action: require('../actions/getColorAction.js')
 	},
 	notFound: {
 		path: '*',

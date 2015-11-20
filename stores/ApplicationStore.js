@@ -8,6 +8,7 @@ class ApplicationStore extends BaseStore {
 		super(dispatcher);
 		this.error = new Object();
 		this.socket = undefined;
+		this.window = undefined;
 	}
 
 	initSocket() {
@@ -16,6 +17,14 @@ class ApplicationStore extends BaseStore {
 
 	initSocketClient(socket) {
 		this.socket = socket;
+	}
+
+	getWindow() {
+		return this.window;
+	}
+
+	initWindow(window) {
+		this.window = window;
 	}
 
 	getSocket() {
