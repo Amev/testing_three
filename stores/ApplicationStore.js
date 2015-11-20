@@ -12,7 +12,7 @@ class ApplicationStore extends BaseStore {
 	}
 
 	initSocket() {
-		this.socket = socket(config.serviceURL);
+		this.socket = socket('http://localhost:3030/');
 	}
 
 	initSocketClient(socket) {
