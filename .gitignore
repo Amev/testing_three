@@ -1,0 +1,15 @@
+build/*
+build/**
+
+node_modules/*
+node_modules/**
+
+config/*
+config/**
+
+databases/*
+databases/**
+
+*.log
+*.swp
+.DS_Store
