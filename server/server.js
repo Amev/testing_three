@@ -21,6 +21,7 @@ var component = React.createFactory(HtmlComponent);
 server.use(compression());
 server.use(favicon(__dirname + '/../app/favicon.ico'));
 server.use(express.static('./'));
+server.use(express.static('./build/'));
 server.set('port', config.port || 3030);
 
 global.color = Math.random() * 0x808080 + 0x808080;

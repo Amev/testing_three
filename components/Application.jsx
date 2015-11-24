@@ -3,7 +3,6 @@ import closeErrorAction from '../actions/closeErrorAction';
 import ApplicationStore from '../stores/ApplicationStore';
 import {handleHistory} from 'fluxible-router';
 import NotFound from './NotFound.jsx';
-import NavBar from './NavBar.jsx';
 import React from 'react';
 
 @provideContext
@@ -45,7 +44,6 @@ class Application extends React.Component {
 		return (
 			<div>
 				{error}
-				<NavBar />
 				<Handler />
 			</div>
 		);
