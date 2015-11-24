@@ -5,8 +5,9 @@ class HomeStore extends BaseStore {
 
 	constructor(dispatcher) {
 		super(dispatcher);
-		this.cameraPosition = new THREE.Vector3(600, 0, 0);
+		this.cameraPosition = new THREE.Vector3(1000, 0, 0);
 		this.intervalID = undefined;
+		this.cubes = new Array(),
 		this.cameraAzimuth = 0;
 		this.color = 0x00ff00;
 	}
@@ -16,6 +17,7 @@ class HomeStore extends BaseStore {
 			cameraPosition: this.cameraPosition,
 			cameraAzimuth: this.cameraAzimuth,
 			intervalID: this.intervalID,
+			cubes: this.cubes,
 			color: this.color
 		};
 	}
@@ -30,13 +32,14 @@ class HomeStore extends BaseStore {
 		let orbitQuaternion = new THREE.Quaternion();
 		orbitQuaternion.setFromAxisAngle(new THREE.Vector3(0, 1, 0), this.cameraAzimuth);
 
-		this.cameraPosition = new THREE.Vector3(600, 0, 0);
+		this.cameraPosition = new THREE.Vector3(1000, 0, 0);
 		this.cameraPosition.applyQuaternion(orbitQuaternion);
 		this.emitChange();
 	}
 
 	onChangeColor(payload) {
 		this.color = payload.color;
+		this.cubes = payload.cubes;
 		this.emitChange();
 	}
 
@@ -45,9 +48,10 @@ class HomeStore extends BaseStore {
 	}
 
 	rehydrate(state) {
-		this.cameraPosition = new THREE.Vector3(0, 0, 5);
+		this.cameraPosition = new THREE.Vector3(1000, 0, 0);
 		this.cubeRotation = new THREE.Euler();
 		this.color = state.color;
+		this.cubes = state.cubes;
 	}
 }
 

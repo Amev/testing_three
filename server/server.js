@@ -24,7 +24,8 @@ server.use(express.static('./'));
 server.set('port', config.port || 3030);
 
 global.color = Math.random() * 0x808080 + 0x808080;
-console.log(global.color);
+global.cubes = new Array();
+global.index = 0;
 
 var io = new SocketIO(serverIO);
 

@@ -6,7 +6,7 @@ function getColorAction(context, payload) {
 	return new Promise((resolve, reject) => {
 		socket.emit('getColor', (response) => {
 			if (response.error === true) reject(response);
-			context.dispatch('CHANGE_COLOR_ACTION', {color: response.color});
+			context.dispatch('CHANGE_COLOR_ACTION', response);
 			resolve();
 		});
 	}).catch((e) => {

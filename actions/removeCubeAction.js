@@ -1,10 +1,10 @@
 import ApplicationStore from '../stores/ApplicationStore';
 
-function changeColorAction(context, payload) {
+function removeCubeAction(context, payload) {
 	let socket = context.getStore(ApplicationStore).getSocket();
 
 	return new Promise((resolve, reject) => {
-		socket.emit('postColor', (response) => {
+		socket.emit('removeCube', payload, (response) => {
 			if (response.error === true) reject(response);
 			context.dispatch('CHANGE_COLOR_ACTION', response);
 			resolve();
@@ -15,4 +15,4 @@ function changeColorAction(context, payload) {
 	});
 }
 
-export default changeColorAction;
+export default removeCubeAction;

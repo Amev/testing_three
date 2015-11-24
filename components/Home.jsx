@@ -3,6 +3,7 @@ import initCameraAction from '../actions/initCameraAction';
 import ApplicationStore from '../stores/ApplicationStore';
 import createFragment from 'react-addons-create-fragment';
 import {connectToStores} from 'fluxible-addons-react';
+import RemovableCube from './RemovableCube.jsx';
 import HomeStore from '../stores/HomeStore';
 import ReactTHREE from 'react-three';
 import THREE from 'three.js-node';
@@ -48,19 +49,39 @@ class Home extends React.Component {
 		let position = new Three.Vector3(0, 0, 0);
 		let	geometry = new Three.BoxGeometry(200, 200, 200);
 		let	material = new Three.MeshBasicMaterial({color: this.props.color, wireframe: true});
+		let cubes = '';
 
-		return (
-			<Scene width={width} height={height} camera="camera" background={0xffffff}
-					antialias={true} pointerEvents={new Array('onClick')}>
-				<PerspectiveCamera name="camera" fov={75} aspect={width/height}
-					far={10000} near={1} position={this.props.cameraPosition}
-					lookat={new Three.Vector3(0, 0, 0)} />
-				<Object3D position={position}>
-					<Mesh position={position} geometry={geometry} material={material}
-						onClick3D={this.handleClick}/>
-				</Object3D>
-			</Scene>
-		);
+		if (this.props.cubes.length > 0) {
+			cubes = this.props.cubes.map((cube) => {
+				return <RemovableCube key={cube.key} cube={cube} window={window}/>
+			});
+			return (
+				<Scene width={width} height={height} camera="camera" background={0xffffff}
+						antialias={true} pointerEvents={new Array('onClick')}>
+					<PerspectiveCamera name="camera" fov={75} aspect={width/height}
+						far={10000} near={1} position={this.props.cameraPosition}
+						lookat={new Three.Vector3(0, 0, 0)} />
+					<Object3D position={position}>
+						<Mesh position={position} geometry={geometry} material={material}
+							onClick3D={this.handleClick}/>
+					</Object3D>
+					{cubes}
+				</Scene>
+			);
+		} else {
+			return (
+				<Scene width={width} height={height} camera="camera" background={0xffffff}
+						antialias={true} pointerEvents={new Array('onClick')}>
+					<PerspectiveCamera name="camera" fov={75} aspect={width/height}
+						far={10000} near={1} position={this.props.cameraPosition}
+						lookat={new Three.Vector3(0, 0, 0)} />
+					<Object3D position={position}>
+						<Mesh position={position} geometry={geometry} material={material}
+							onClick3D={this.handleClick}/>
+					</Object3D>
+				</Scene>
+			);
+		}
 	}
 }
 

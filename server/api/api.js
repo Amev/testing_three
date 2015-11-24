@@ -1,11 +1,11 @@
+import deleteCube from './color/deleteCube';
 import postColor from './color/postColor';
 import getColor from './color/getColor';
 
 function socketAPI(socket) {
-	console.log('connexion color');
-
 	getColor(socket);
 	postColor(socket);
+	deleteCube(socket);
 
 	socket.on('error', (payload) => {
 		socket.emit('errorMSG', payload);
