@@ -1,12 +1,18 @@
-import animateCubeAction from '../actions/animateCubeAction';
 import changeColorAction from '../actions/changeColorAction';
+import initCameraAction from '../actions/initCameraAction';
 import ApplicationStore from '../stores/ApplicationStore';
+import createFragment from 'react-addons-create-fragment';
 import {connectToStores} from 'fluxible-addons-react';
 import HomeStore from '../stores/HomeStore';
-import React3 from 'react-three-renderer';
+import ReactTHREE from 'react-three';
+import THREE from 'three.js-node';
 import ReactDOM from 'react-dom';
-import THREE from 'three.js';
 import React from 'react';
+
+var Mesh = ReactTHREE.Mesh;
+var Scene = ReactTHREE.Scene;
+var Object3D = ReactTHREE.Object3D;
+var PerspectiveCamera = ReactTHREE.PerspectiveCamera;
 
 @connectToStores([HomeStore], (context) => {
 	return context.getStore(HomeStore).getState();
@@ -18,18 +24,10 @@ class Home extends React.Component {
 		executeAction: React.PropTypes.func
 	};
 
-	static propTypes = {
-		handleClick: React.PropTypes.func
-	};
-
 	constructor(props, context) {
 		super(props, context);
 		this.handleClick = this.handleClick.bind(this);
-		this.handleAnimate = this.handleAnimate.bind(this);
-	}
-
-	handleAnimate(event) {
-		this.context.executeAction(animateCubeAction, {});
+		this.componentDidMount = this.componentDidMount.bind(this);
 	}
 
 	handleClick(event) {
@@ -38,25 +36,30 @@ class Home extends React.Component {
 		this.context.executeAction(changeColorAction, {});
 	}
 
+	componentDidMount() {
+		this.context.executeAction(initCameraAction, {});
+	}
+
 	render() {
 		let window = this.context.getStore(ApplicationStore).getWindow(),
 			height = window ? window.innerHeight : 500,
-			width = window ? window.innerWidth : 500;
+			width = window ? window.innerWidth : 500,
+			Three = window ? window.THREE : THREE;
+		let position = new Three.Vector3(0, 0, 0);
+		let	geometry = new Three.BoxGeometry(200, 200, 200);
+		let	material = new Three.MeshBasicMaterial({color: this.props.color, wireframe: true});
 
 		return (
-			<div onMouseDown={this.handleClick}>
-			<React3 mainCamera="camera" width={width} height={height}
-				onAnimate={this.handleAnimate}>
-				<scene>
-					<perspectiveCamera name="camera" fov={75} aspect={width/height}
-						near={0.1} far={1000} position={this.props.cameraPosition} />
-					<mesh rotation={this.props.cubeRotation} ref="mesh">
-						<boxGeometry width={1} height={1} depth={1} />
-						<meshBasicMaterial color={this.props.color} wireframe />
-					</mesh>
-				</scene>
-			</React3>
-			</div>
+			<Scene width={width} height={height} camera="camera" background={0xffffff}
+					antialias={true} pointerEvents={new Array('onClick')}>
+				<PerspectiveCamera name="camera" fov={75} aspect={width/height}
+					far={10000} near={1} position={this.props.cameraPosition}
+					lookat={new Three.Vector3(0, 0, 0)} />
+				<Object3D position={position}>
+					<Mesh position={position} geometry={geometry} material={material}
+						onClick3D={this.handleClick}/>
+				</Object3D>
+			</Scene>
 		);
 	}
 }

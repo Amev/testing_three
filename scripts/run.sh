@@ -1,1 +1,1 @@
-gulp babel && npm start
+npm install && gulp babel && npm start

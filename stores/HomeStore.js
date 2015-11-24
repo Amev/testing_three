@@ -1,25 +1,37 @@
 import {BaseStore} from 'fluxible/addons';
-import THREE from 'three.js';
+import THREE from 'three.js-node';
 
 class HomeStore extends BaseStore {
 
 	constructor(dispatcher) {
 		super(dispatcher);
-		this.cameraPosition = new THREE.Vector3(0, 0, 5);
-		this.cubeRotation = new THREE.Euler();
+		this.cameraPosition = new THREE.Vector3(600, 0, 0);
+		this.intervalID = undefined;
+		this.cameraAzimuth = 0;
 		this.color = 0x00ff00;
 	}
 
 	getState() {
 		return {
 			cameraPosition: this.cameraPosition,
-			cubeRotation: this.cubeRotation,
+			cameraAzimuth: this.cameraAzimuth,
+			intervalID: this.intervalID,
 			color: this.color
 		};
 	}
 
-	onAnimateCube(payload) {
-		this.cubeRotation = new THREE.Euler(this.cubeRotation.x + 0.001, this.cubeRotation.y + 0.01, 0);
+	onInitCamera(payload) {
+		this.intervalID = payload.intervalID;
+	}
+
+	onAnimateCamera(payload) {
+		this.cameraAzimuth += 0.01;
+
+		let orbitQuaternion = new THREE.Quaternion();
+		orbitQuaternion.setFromAxisAngle(new THREE.Vector3(0, 1, 0), this.cameraAzimuth);
+
+		this.cameraPosition = new THREE.Vector3(600, 0, 0);
+		this.cameraPosition.applyQuaternion(orbitQuaternion);
 		this.emitChange();
 	}
 
@@ -41,8 +53,9 @@ class HomeStore extends BaseStore {
 
 HomeStore.storeName = 'HomeStore';
 HomeStore.handlers = {
-	'ANIMATE_CUBE_ACTION': 'onAnimateCube',
-	'CHANGE_COLOR_ACTION': 'onChangeColor'
+	'ANIMATE_CAMERA_ACTION': 'onAnimateCamera',
+	'CHANGE_COLOR_ACTION': 'onChangeColor',
+	'INIT_CAMERA_ACTION': 'onInitCamera'
 };
 
 export default HomeStore;

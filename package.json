@@ -19,13 +19,16 @@
     "fluxible-addons-react": "^0.2.0",
     "fluxible-router": "^0.4.0",
     "react": "^0.14.3",
+    "react-addons-create-fragment": "^0.14.3",
     "react-dom": "^0.14.3",
+    "react-three": "^0.7.4",
     "react-three-renderer": "0.0.11-alpha",
     "serialize-javascript": "^1.1.2",
     "serve-favicon": "^2.3.0",
     "socket.io": "^1.3.7",
     "socket.io-client": "^1.3.7",
-    "three.js-node": "^0.72.1"
+    "three": "^0.72.0",
+    "three.js-node": "^0.72.0"
   },
   "devDependencies": {
     "babelify": "^6.2.0",

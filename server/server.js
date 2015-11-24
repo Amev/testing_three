@@ -23,7 +23,7 @@ server.use(favicon(__dirname + '/../app/favicon.ico'));
 server.use(express.static('./'));
 server.set('port', config.port || 3030);
 
-global.color = 0x00ff00;
+global.color = Math.random() * 0x808080 + 0x808080;
 console.log(global.color);
 
 var io = new SocketIO(serverIO);
