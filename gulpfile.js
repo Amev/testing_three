@@ -17,7 +17,11 @@ var path = {
 	CSS: './app/style.css'
 };
 
-gulp.task('babel', [], function() {
+gulp.task('copy', function() {
+	return gulp.src(path.CSS).pipe(gulp.dest(path.DEST_PUBLIC));
+});
+
+gulp.task('babel', ['copy'], function() {
 	return browserify({
 		entries: [path.ENTRY_POINT],
 		extensions: ['.jsx', '.js'],
@@ -30,11 +34,7 @@ gulp.task('babel', [], function() {
 	.pipe(gulp.dest(path.DEST_PUBLIC));
 });
 
-gulp.task('copy', function() {
-	return gulp.src(path.CSS).pipe(gulp.dest(path.DEST_PUBLIC));
-});
-
-gulp.task('watch', ['babel', 'copy'], function() {
+gulp.task('watch', ['babel'], function() {
 	gulp.watch(path.CSS, ['copy']);
 	gulp.watch(path.APP_JS, ['babel']);
 	gulp.watch(path.ROUTES_JS, ['babel']);
