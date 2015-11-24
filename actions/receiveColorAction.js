@@ -1,5 +1,5 @@
 function receiveColorAction(context, payload) {
-	context.dispatch('CHANGE_COLOR_ACTION', {color: payload.color});
+	context.dispatch('CHANGE_COLOR_ACTION', payload);
 }
 
 export default receiveColorAction;

@@ -27,18 +27,30 @@ class Home extends React.Component {
 
 	constructor(props, context) {
 		super(props, context);
+		this._animate = this._animate.bind(this);
 		this.handleClick = this.handleClick.bind(this);
 		this.componentDidMount = this.componentDidMount.bind(this);
 	}
 
 	handleClick(event) {
 		event.preventDefault();
-
 		this.context.executeAction(changeColorAction, {});
 	}
 
-	componentDidMount() {
+	_animate() {
 		this.context.executeAction(initCameraAction, {});
+		window.requestID = requestAnimationFrame(this._animate);
+	}
+
+	componentDidMount() {
+		if (this.context.getStore(ApplicationStore).getWindow())
+			this._animate();
+	}
+
+	componentWillUnmount() {
+		if (window.requestID)
+			cancelAnimationFrame(window.requestID);
+		window.requestID = undefined;
 	}
 
 	render() {

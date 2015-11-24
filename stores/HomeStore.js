@@ -6,7 +6,6 @@ class HomeStore extends BaseStore {
 	constructor(dispatcher) {
 		super(dispatcher);
 		this.cameraPosition = new THREE.Vector3(1000, 0, 0);
-		this.intervalID = undefined;
 		this.cubes = new Array(),
 		this.cameraAzimuth = 0;
 		this.color = 0x00ff00;
@@ -16,14 +15,9 @@ class HomeStore extends BaseStore {
 		return {
 			cameraPosition: this.cameraPosition,
 			cameraAzimuth: this.cameraAzimuth,
-			intervalID: this.intervalID,
 			cubes: this.cubes,
 			color: this.color
 		};
-	}
-
-	onInitCamera(payload) {
-		this.intervalID = payload.intervalID;
 	}
 
 	onAnimateCamera(payload) {
@@ -58,8 +52,7 @@ class HomeStore extends BaseStore {
 HomeStore.storeName = 'HomeStore';
 HomeStore.handlers = {
 	'ANIMATE_CAMERA_ACTION': 'onAnimateCamera',
-	'CHANGE_COLOR_ACTION': 'onChangeColor',
-	'INIT_CAMERA_ACTION': 'onInitCamera'
+	'CHANGE_COLOR_ACTION': 'onChangeColor'
 };
 
 export default HomeStore;

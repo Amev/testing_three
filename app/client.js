@@ -25,6 +25,7 @@ app.rehydrate(dehydratedState, (err, context) => {
 });
 
 socket.on('newColor', (payload) => {
+	console.log(payload);
 	window.context.executeAction(receiveColorAction, payload);
 });
 
