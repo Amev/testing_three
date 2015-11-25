@@ -9,12 +9,14 @@ class HomeStore extends BaseStore {
 		this.cubes = new Array(),
 		this.cameraAzimuth = 0;
 		this.color = 0x00ff00;
+		this.perform = 0;
 	}
 
 	getState() {
 		return {
 			cameraPosition: this.cameraPosition,
 			cameraAzimuth: this.cameraAzimuth,
+			perform: this.perform,
 			cubes: this.cubes,
 			color: this.color
 		};
@@ -28,6 +30,7 @@ class HomeStore extends BaseStore {
 
 		this.cameraPosition = new THREE.Vector3(1000, 0, 0);
 		this.cameraPosition.applyQuaternion(orbitQuaternion);
+		this.perform = window.performance.now();
 		this.emitChange();
 	}
 
@@ -44,6 +47,7 @@ class HomeStore extends BaseStore {
 	rehydrate(state) {
 		this.cameraPosition = new THREE.Vector3(1000, 0, 0);
 		this.cubeRotation = new THREE.Euler();
+		this.perform = state.perform;
 		this.color = state.color;
 		this.cubes = state.cubes;
 	}
