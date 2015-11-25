@@ -25,3 +25,9 @@ sh dockerCMDThree.sh
 Puis ouvrir un navigateur supportant WebGL à l'adresse suivante : [http:localhost:3030/](http:localhost:3030/).
 
 Et tester en ouvrant plusieurs navigateur pour observer la reactivité des websocket.
+
+## Issues
+
+Le projet dans son état actuel rencontre quelques problèmes liés à l'animation de la camera. En effet le browser rencontre des freezes au moment de changer de page ou de rafraichir la page. Il semble que le probleme vienne du `requestAnimationFrame()` qui crée une sorte de pile d'actions à dispatcher de plus en plus importance en fonction de la durée d'execution de l'animation. Cette pile d'action engendre un ralentissement du browser.
+
+La resolution de ce problème est en têtes des tâches à effectuer pour ce projet. Mais la limite vient peut-être de l'utilisation de flux/fluxible qui ralentit l'éxécution de l'animation. À approfondir...
