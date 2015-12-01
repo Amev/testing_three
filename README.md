@@ -10,7 +10,7 @@ Pour mettre le serveur en route (sans Docker), run:
 
 ```
 npm install
-gulp
+gulp babel
 npm start
 ```
 
